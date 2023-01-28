@@ -22,7 +22,7 @@ const reverse = (list) => {
 };
 
 // которая соединяет два списка, используя рекурсивный процесс
-export const concat = (list1, list2) => {
+const concat = (list1, list2) => {
   if (isEmpty(list1)) {
     return list2;
   }
