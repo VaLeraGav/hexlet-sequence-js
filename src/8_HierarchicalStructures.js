@@ -26,6 +26,11 @@ const select = (tag, list) => {
     return filter((elem) => is(tag, elem), linearList);
 };
 
+const selectT = (tagName, html) => reduce((element, acc) => {
+    const acc2 = hasChildren(element) ? concat(select(tagName, children(element)), acc) : acc;
+    return is(tagName, element) ? consList(element, acc2) : acc2;
+}, l(), html);
+
 
 // const select = (tagName, html) => reduce((element, acc) => {
 //   const acc2 = hasChildren(element) ? concat(select(tagName, children(element)), acc) : acc;
@@ -61,3 +66,18 @@ console.log(length(select('span', dom))); // toBe(2);
 console.log(length(select('section', dom))); // toBe(0);
 
 export default select;
+
+
+const tree = l(l(1, 2), l(3, l(4, 5)), 6);
+
+const countElements = (tree) => {
+    if (!isList(tree)) {
+        return 1;
+    }
+    if (isEmpty(tree)) {
+        return 0;
+    }
+    return countElements(head(tree)) + countElements(tail(tree));
+};
+
+countElements(tree); // 6
